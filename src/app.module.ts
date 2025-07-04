@@ -3,7 +3,6 @@ import {
   MiddlewareConsumer,
   Module,
   NestModule,
-  ParseIntPipe,
   RequestMethod,
   ValidationPipe,
 } from '@nestjs/common';
@@ -11,17 +10,13 @@ import { ProductsModule } from './products/products.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Product } from './products/product.entity';
-import { User } from './users/user.entity';
-import { Review } from './reviews/review.entity';
+import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { UploadsModule } from './uploads/uploads.module';
 import { MailModule } from './mail/mail.module';
 import { LoggerMiddleware } from './utils/middlewares/logger.middleware';
-import helmet from 'helmet';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { dataSourceOptions } from 'db/data-source';
+import { dataSourceOptions } from '../db/data-source';
 import { AppController } from './app.controller';
 
 /**

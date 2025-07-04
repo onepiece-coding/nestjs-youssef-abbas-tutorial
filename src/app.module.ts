@@ -22,6 +22,7 @@ import { LoggerMiddleware } from './utils/middlewares/logger.middleware';
 import helmet from 'helmet';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { dataSourceOptions } from 'db/data-source';
+import { AppController } from './app.controller';
 
 /**
  *  Modularity
@@ -36,6 +37,7 @@ import { dataSourceOptions } from 'db/data-source';
  */
 
 @Module({
+  controllers: [AppController],
   imports: [
     ProductsModule,
     ReviewsModule,
@@ -71,7 +73,10 @@ import { dataSourceOptions } from 'db/data-source';
     // depend on dotenv package (Express.js)
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      envFilePath:
+        process.env.NODE_ENV !== 'production'
+          ? `.env.${process.env.NODE_ENV}`
+          : '.env',
     }),
     ThrottlerModule.forRoot({
       throttlers: [
